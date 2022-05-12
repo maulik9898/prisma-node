@@ -7,7 +7,7 @@ name: DOCKER-BUILD
 on:
   push:
     tags:
-      - 'v*.*.*-*'
+      - '*'
 
 # permissions are needed if pushing to ghcr.io
 permissions: 
@@ -34,7 +34,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Docker meta
-        id: scytale-meta-id # you'll use this in the next step
+        id: prisma-node-meta-id # you'll use this in the next step
         uses: docker/metadata-action@v3
         with:
           # list of Docker images to use as base name for tags
@@ -55,5 +55,5 @@ jobs:
           context: .
           platforms: linux/arm64,linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.scytale-meta-id.outputs.tags }}
-          labels: ${{ steps.scytale-meta-id.outputs.labels }}
+          tags: ${{ steps.prisma-node-meta-id.outputs.tags }}
+          labels: ${{ steps.prisma-node-meta-id.outputs.labels }}
